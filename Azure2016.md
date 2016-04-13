@@ -11,5 +11,7 @@
 Future release: biggest nodes with 24 CPU cores and 2 x K80 cards (so 4 x GPUs)
 
 Proposal Title:
+"Assessing the potential of Azure services for computational studies of aerodynamics of animal flight"
 
-Proposal Abstract
+Proposal Abstract:
+
