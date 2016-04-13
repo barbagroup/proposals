@@ -19,7 +19,10 @@ _"Assessing the potential of Azure resources for computational studies of aerody
 
 _Background_
 
-Our group published a study of the aerodynamics of flying snakes in 2014 [1], using 2D simulations with a fluid solver called cuIBM.
-The solver is a serial GPU-enabled code, and thus limited in the size of problems it can handle.
-Even so, it allowed us to find evidence of a surprising aerodyanmic effect: enhancement of the lift forces at a particular angle of attack. 
+Our group published a study of the aerodynamics of flying snakes in 2014 [1], using two-dimensional simulations with a fluid solver called cuIBM.
+The solver is a serial GPU-enabled code, and thus limited in the size of problems it can handle by the memory available on a single GPU card.
+Even so, cuIBM allowed us to find evidence of a surprising aerodyanmic effect: enhancement of the lift forces at a particular angle of attack.
+Lift-enhancement mechanisms are a major contributor to the flight forces created by animal flyers and gliders, and a source of bioinspiration for robotic air vehicles.
+To further this research, our group developed a parallel three-dimensional solver called PetIBM.
+It uses the PETSc scientific library to solve systems of algebraic equations in parallel CPU clusters.
 
