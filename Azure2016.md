@@ -51,22 +51,27 @@ While we estimate this mesh to be DNS-compatible, we are curious to run a strong
 A mesh of this size will fit on 2 Azure nodes.
 This will provide useful data related to the scalability of PetIBM and allow us to compare the DNS flow solution (finer mesh) with an implicit LES solution (coarser mesh).
 
-In order to perform a strong scaling study, we propose to run the coarser mesh over a time-integration period of 100 time-steps with time-increment $8\times10{-3}s$ to maintain a CFL number (based on the freestream speed) lower than 1.0.
-As a test, we ran 2800 time-steps on a mesh of 10.3 million points in about 36 hours using 1 node (16 cores); we estimate the cost per time-step and per mesh-point to be $4.5\times10^{-6}$ seconds.
-Therefore, 100 time-steps of the solution on a mesh of 45 million points will require about 5.6 core hours, or approximately 11 minutes-per-run using 2 nodes.
-We would like to perform a strong scaling study of PetIBM using this coarser mesh requesting 2, 4, 8, and 16 nodes.  Each run will be repeated five times and the results taken as the average across the runs.
-We estimate that this first stage, studying strong scaling on the coarse grid, will require approximately 112 core hours (FYI: 5*4*5.6).
+In order to perform a strong scaling study, we propose to run the coarser mesh over a time-integration period of 100 time-steps with time-increment $4\times10{-3}s$ to maintain a CFL number (based on the freestream speed) lower than 0.5.
+As a test, we ran 2800 time-steps on a mesh of 10.3 million points in about 36 hours using 1 node (16 cores); we estimate the cost per time-step and per mesh-point to be $4.5\times10^{-6}$ seconds when using one node (16 MPI processes) of the University cluster.
+Therefore, 100 time-steps of the solution on a mesh of 45 million points will require about 90 core hours, or approximately 170-per-run using 2 nodes.
+We would like to perform a strong scaling study of PetIBM using this coarser mesh requesting 2, 4, 8, and 16 nodes. 
+Each run will be repeated five times and the results taken as the average across the runs.
+We estimate that this stage, studying strong scaling on the coarse grid, will require approximately 1,800 core hours (FYI: 16*4.5E-06/3600*45E+06*100*5*4).
 
-Second, we would like to evaluate the scalability of PetIBM on a DNS-ready mesh-size of 225 million cells using 6, 8, 12, and 24 nodes.
-Running 100 time-steps on this finer mesh will require about 28.1 core hours.
-This second stage, on the finer mesh, will total approximately 562 core hours (FYI: 5*4*28.1).
+Second, we would like to evaluate the scalability of PetIBM on a DNS-ready mesh-size of 225 million cells using 6, 12, 24, and 48 nodes.
+Running 100 time-steps on this finer mesh will require about 450 core hours.
+This second stage, on the finer mesh, will total approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
 
-Based on our two-dimensional results at Reynolds number 2000, the flow leaves the transient phase to reach a periodic regime after about 30 non-dimensional time-units.
-We propose to use the periodic solution of the flow after 30 time-units as an initial condition for our strong scaling analysis.
-Thus, on the coarser mesh, we need to compute 3750 time-steps with time-increment 8\times10^{-3}, requiring 211 core hours (FYI: 4.6E-06*45E+06*3750).
-On the finer grid, we need to compute 37500 time-steps with time-increment 4\times10^{-3}, requiring 10500 core hours (FYI: 4.6E-06*225E+06*37500).
+We would like to run PetIBM on the coarser mesh to reach a periodic regime of the flow, let say after 60 vortex shedding cycles.
+In our previous two-dimensional simulations at Reynolds number 2000, the frequency of shedding was on average 0.375.
+Thus, on the coarser mesh, we need to compute 
+Thus, in order to get the solution over 60 vortex shedding cycles with a time-increment of $4\times10^{-3}$, we need to compute 40,000 time-steps, to obtain the solution over 60 vortex shedding cycles.
+This stage will require about 36,000 core hours (FYI: 16*4.5E-06/3600*45E+06*60/0.375/4.0E-03).
+In order to run the strong scaling study on the finer mesh, we will use the coarser solution as an initial time-step interpolated on the finer mesh.
+We will also run PetIBM on the finer mesh for to compute the flow solution over 25 vortex shedding cycles with time-increment $2\times10^{-3}$.
+This computation will require about 150,000 core hours. (FYI: 16*4.5E-06/3600*225E+06*25/0.375/2.0E-03.)
 
-(FYI: right now, we end-up with: 112+562+211+10500=11217 core hours.)
+Overall, the strong scaling studies and the longer runs will require about 196,800 core hours.
 
 We also developed an AmgX-wrapper, compatible with PetIBM, to solve the linear systems on multiple GPUs.
 It will be interesting to compare the performances obtained on CPUs and GPUs.
