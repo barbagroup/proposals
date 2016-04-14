@@ -42,9 +42,9 @@ This Azure research effort is in collaboration with Dr. Kenji Takeda, Solutions 
 
 *Problem size:* 
 Our prior two-dimensional simulations of the snake cross-section (Krishnan et al., 2014) used a Cartesian stretched grid containing about 2.9 million points.
-We centered the body in the domain 30_c_x 30_c_ (where _c_ is the chord-length of the body cross-section).
+We centered the body in the domain 30*c*x 30 *c* (where *c* is the chord-length of the body cross-section).
 The grid had a spacing of 0.004_c_ in both directions in the near-body region, then stretched with a constant ratio of 1.01 outwards, in each direction.
-With the same cross-section grid resolution for the three-dimensional configuration, we can expand the domain in the third direction (spanwise) over a length of π_c_. Choosing a spanwise cell-width that is 10x larger than cross-section resolution (i.e., 0.04_c_), we end up with a mesh-size of roughly 225 millions points.
+With the same cross-section grid resolution for the three-dimensional configuration, we can expand the domain in the third direction (spanwise) over a length of π *c*. Choosing a spanwise cell-width that is 10x larger than cross-section resolution (i.e., 0.04*c*), we end up with a mesh-size of roughly 225 millions points.
 This problem size will be our reference to calculate the resource requirements.
 
 The 225-million-point 3D mesh should allow for _direct numerical simulation_ (DNS) of our problem.
