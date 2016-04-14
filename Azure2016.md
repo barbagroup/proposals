@@ -42,9 +42,10 @@ This Azure research effort is in collaboration with Dr. Kenji Takeda, Solutions 
 
 *Problem size:* 
 Our prior two-dimensional simulations of the snake cross-section (Krishnan et al., 2014) used a Cartesian stretched grid containing about 2.9 million points.
-We centered the body in the domain 30*c*x 30 *c* (where *c* is the chord-length of the body cross-section).
-The grid had a spacing of 0.004_c_ in both directions in the near-body region, then stretched with a constant ratio of 1.01 outwards, in each direction.
-With the same cross-section grid resolution for the three-dimensional configuration, we can expand the domain in the third direction (spanwise) over a length of π *c*. Choosing a spanwise cell-width that is 10x larger than cross-section resolution (i.e., 0.04*c*), we end up with a mesh-size of roughly 225 millions points.
+We centered the body in the domain 30 *c* x 30 *c* (where *c* is the chord-length of the body cross-section).
+The grid had a spacing of 0.004*c* in both directions in the near-body region, then stretched with a constant ratio of 1.01 outwards, in each direction.
+With the same cross-section grid resolution for the three-dimensional configuration, we can expand the domain in the third direction (spanwise) over a length of π *c*.
+Choosing a spanwise cell-width that is 10x larger than cross-section resolution (i.e., 0.04*c*), we end up with a mesh-size of roughly 225 millions points.
 This problem size will be our reference to calculate the resource requirements.
 
 The 225-million-point 3D mesh should allow for _direct numerical simulation_ (DNS) of our problem.
@@ -57,19 +58,21 @@ A trial run of the three-dimensional problem on a smaller mesh of 4 million poin
 We thus estimate that the memory requirements of a PetIBM simulation with a mesh of 225 million points will need a minimum of six Azure A9 nodes (112GB memory each), with a 35% safety factor.
 A mesh with 45 million points will fit on two Azure A9 nodes.
 
-*Experimental setup:*
+*Experimental setup and compute time:*
 In order to perform a strong-scaling study, we propose to run with the coarser mesh over a time-integration period of 100 time-steps with time-increment $4\times10{-3}s$ to maintain a CFL number (based on the freestream speed) lower than 0.5.
-As a test, we ran 2800 time-steps on a mesh of 10.3 million points in about 36 hours using 1 node (16 cores); we estimate the cost per time-step and per mesh-point to be $4.5\times10^{-6}$ seconds when using one node (16 MPI processes) of the University cluster.
-Therefore, 100 time-steps of the solution on a mesh of 45 million points will require about 90 core hours, or approximately 170-per-run using 2 nodes.
-We would like to perform a strong scaling study of PetIBM using this coarser mesh requesting 2, 4, 8, and 16 nodes. 
-Each run will be repeated five times and the results taken as the average across the runs.
-We estimate that this stage, studying strong scaling on the coarse grid, will require approximately 1,800 core hours (FYI: 16*4.5E-06/3600*45E+06*100*5*4).
+As a test, we ran 2800 time-steps on a mesh of 10.3 million points in about 36 hours using 1 node (16 hardware cores) of our university cluster. 
+We estimated the cost per time-step and per mesh-point to be $4.5\times10^{-6}$ seconds in this test.
+For 100 time steps on a 45-million-point mesh, we estimate a runtime of 90 core hours, or approximately 170 hr per-run using two compute nodes.
 
-Second, we would like to evaluate the scalability of PetIBM on a DNS-ready mesh-size of 225 million cells using 6, 12, 24, and 48 nodes.
+We propose a strong-scaling study of PetIBM using the coarser mesh, requesting 2, 4, 8, and 16 nodes. 
+Each run will be repeated five times to report the average run time.
+For this stage, we estimate a requirement of approximately 1,800 core hours (FYI: 16*4.5E-06/3600*45E+06*100*5*4).
+
+Second, we propose to evaluate the scalability of PetIBM on a DNS-ready mesh size of 225 million points using 6, 12, 24, and 48 nodes.
 Running 100 time-steps on this finer mesh will require about 450 core hours.
-This second stage, on the finer mesh, will total approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
+For this second stage, we estimate a requirement of approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
 
-We would like to run PetIBM on the coarser mesh to reach a periodic regime of the flow, let say after 60 vortex shedding cycles.
+We will run PetIBM on the coarser mesh to reach a periodic regime of the flow, let say after 60 vortex shedding cycles.
 In our previous two-dimensional simulations at Reynolds number 2000, the frequency of shedding was on average 0.375.
 Thus, on the coarser mesh, we need to compute 
 Thus, in order to get the solution over 60 vortex shedding cycles with a time-increment of $4\times10^{-3}$, we need to compute 40,000 time-steps, to obtain the solution over 60 vortex shedding cycles.
