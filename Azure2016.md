@@ -59,17 +59,16 @@ We thus estimate that the memory requirements of a PetIBM simulation with a mesh
 A mesh with 45 million points will fit on two Azure A9 nodes.
 
 *Experimental setup and compute time:*
-In order to perform a strong-scaling study, we propose to run with the coarser mesh over a time-integration period of 100 time-steps with time-increment $4\times10{-3}s$ to maintain a CFL number (based on the freestream speed) lower than 0.5.
-As a test, we ran 2800 time-steps on a mesh of 10.3 million points in about 36 hours using 1 node (16 hardware cores) of our university cluster. 
-We estimated the cost per time-step and per mesh-point to be $4.5\times10^{-6}$ seconds in this test.
-For 100 time steps on a 45-million-point mesh, we estimate a runtime of 90 core hours, or approximately 170 hr per-run using two compute nodes.
+In order to perform a strong-scaling study, we propose to run with each mesh over a time-integration period of 100 time-steps with a time-increment to obtain a CFL number of 0.5 (based on the freestream speed).
+That gives a time increment of $4\times10{-3}s$ for the coarser mesh and $2\times10{-3}s$ for the finer mesh.
+A test of 2800 time-steps on a mesh of 10.3 million points took about 36 hours using 1 node (16 hardware cores) of our university cluster. 
+That gives an estimated cost per time-step and per mesh-point of $4.5\times10^{-6}$ seconds.
 
+*Scaling study:*
 We propose a strong-scaling study of PetIBM using the coarser mesh, requesting 2, 4, 8, and 16 nodes. 
 Each run will be repeated five times to report the average run time.
 For this stage, we estimate a requirement of approximately 1,800 core hours (FYI: 16*4.5E-06/3600*45E+06*100*5*4).
-
 Second, we propose to evaluate the scalability of PetIBM on a DNS-ready mesh size of 225 million points using 6, 12, 24, and 48 nodes.
-Running 100 time-steps on this finer mesh will require about 450 core hours.
 For this second stage, we estimate a requirement of approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
 
 We will run PetIBM on the coarser mesh to reach a periodic regime of the flow, let say after 60 vortex shedding cycles.
