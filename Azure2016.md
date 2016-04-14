@@ -76,7 +76,7 @@ For the finer mesh, we will use the end of the second transition stage as a star
 That requires an additional 25 vortex-shedding cycles with time-increment $2\times10^{-3}$.
 This will require about 150,000 core hours. (FYI: 16x 4.5E-06/3600 x225E+06 x25/0.375/2.0E-03.)
 
-In sum, most of the required compute resourses are needed for the setup of the experiments, with these long runs to reach the quasi-periodic regime. The total requirement is for 186,000 core hours.
+In sum, most of the required compute resources are needed for the setup of the experiments, with these long runs to reach the quasi-periodic regime. The total requirement is for 186,000 core hours.
 
 
 *Scaling study:*
@@ -90,7 +90,7 @@ Overall, the complete study will require about 196,800 core hours.
 
 *Comparison with GPU resources:* 
 As stated in the introduction, we also developed an AmgX-wrapper, compatible with PetIBM, to solve the linear systems on multiple GPUs.
-We propoose to compare the performance obtained on CPU nodes versus GPU nodes, when these become available on Azure.
+We propose to compare the performance obtained on CPU nodes versus GPU nodes, when these become available on Azure.
 
 _References_
 
