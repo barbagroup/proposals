@@ -36,6 +36,8 @@ We estimated that with 200k CPU-core hours, we will be able to complete a small-
 We would also like to run PetIBM on the new Azure GPU nodes, and compare the time-to-solution and cost of both architectures for our application.
 The results of this study will allow us to estimate the resources that would be needed to complete a full study of the three-dimensional lift-enhancement mechanism in anatomically correct sections of a flying snake's body.
 
+This Azure research effort is in collaboration with Dr. Kenji Takeda, Solutions Architect and Technical Manager for Microsoft Research.
+
 #### Resource requirements estimate
 
 *Problem size:* 
