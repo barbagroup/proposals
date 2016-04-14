@@ -58,22 +58,25 @@ A trial run of the three-dimensional problem on a smaller mesh of 4 million poin
 We thus estimate that the memory requirements of a PetIBM simulation with a mesh of 225 million points will need a minimum of six Azure A9 nodes (112GB memory each), with a 35% safety factor.
 A mesh with 45 million points will fit on two Azure A9 nodes.
 
-*Cost per grid point and time step*
+*Cost per grid point and time step:* 
 A test of 2800 time-steps on a mesh of 10.3 million points took about 36 hours using 1 node (16 hardware cores) of our university cluster. 
 That gives an estimated cost per time-step and per mesh-point of $4.5\times10^{-6}$ seconds.
 
 *Experimental setup and compute time:*
 In order to perform a strong-scaling study, we propose to run with each mesh over a time-integration period of 100 time-steps with a time-increment giving a CFL number of 0.5 (based on the freestream speed).
-That gives a time increment of $4\times10{-3}s$ for the coarser mesh and $2\times10{-3}s$ for the finer mesh.
+That results in a time increment of $4\times10{-3}s$ for the coarser mesh and $2\times10{-3}s$ for the finer mesh.
 
-We will run PetIBM on the coarser mesh to reach a periodic regime of the flow, let say after 60 vortex shedding cycles.
+We will run PetIBM on the coarser mesh to reach the quasi periodic regime of the flow, then interpolate to the finer mesh and restart for another transition period reaching a new quasi periodic regime.
+At the end of the first transition stage, we have the starting condition for all the runs with the coarse mesh.
+Because this mesh is considerably cheaper to compute, we propose to run a generous period equal to 60 vortex-shedding cycles.
 In our previous two-dimensional simulations at Reynolds number 2000, the frequency of shedding was on average 0.375.
-Thus, on the coarser mesh, we need to compute 
-Thus, in order to get the solution over 60 vortex shedding cycles with a time-increment of $4\times10^{-3}$, we need to compute 40,000 time-steps, to obtain the solution over 60 vortex shedding cycles.
-This stage will require about 36,000 core hours (FYI: 16*4.5E-06/3600*45E+06*60/0.375/4.0E-03).
-In order to run the strong scaling study on the finer mesh, we will use the coarser solution as an initial time-step interpolated on the finer mesh.
-We will also run PetIBM on the finer mesh for to compute the flow solution over 25 vortex shedding cycles with time-increment $2\times10^{-3}$.
-This computation will require about 150,000 core hours. (FYI: 16*4.5E-06/3600*225E+06*25/0.375/2.0E-03.)
+Thus, with a time-increment of $4\times10^{-3}$ (corresponding to the coarser mesh), we need to compute 40,000 time-steps, to obtain the solution over 60 vortex-shedding cycles.
+This stage will require about 36,000 core hours (FYI: 16x 4.5E-06/3600 x45E+06 x60/0.375/4.0E-03).
+For the finer mesh, we will use the end of the second transition stage as a starting condition.
+That requires an additional 25 vortex-shedding cycles with time-increment $2\times10^{-3}$.
+This will require about 150,000 core hours. (FYI: 16x 4.5E-06/3600 x225E+06 x25/0.375/2.0E-03.)
+
+In sum, most of the required compute resourses are needed for the setup of the experiments, with these long runs to reach the quasi-periodic regime. The total requirement is for 186,000 core hours.
 
 
 *Scaling study:*
@@ -83,10 +86,11 @@ For this stage, we estimate a requirement of approximately 1,800 core hours (FYI
 Second, we propose to evaluate the scalability of PetIBM on a DNS-ready mesh size of 225 million points using 6, 12, 24, and 48 nodes.
 For this second stage, we estimate a requirement of approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
 
-Overall, the strong scaling studies and the longer runs will require about 196,800 core hours.
+Overall, the complete study will require about 196,800 core hours.
 
-We also developed an AmgX-wrapper, compatible with PetIBM, to solve the linear systems on multiple GPUs.
-It will be interesting to compare the performances obtained on CPUs and GPUs.
+*Comparison with GPU resources:* 
+As stated in the introduction, we also developed an AmgX-wrapper, compatible with PetIBM, to solve the linear systems on multiple GPUs.
+We propoose to compare the performance obtained on CPU nodes versus GPU nodes, when these become available on Azure.
 
 _References_
 
