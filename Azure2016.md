@@ -14,6 +14,12 @@ Future release: biggest nodes with 24 CPU cores and 2 x K80 cards (so 4 x GPUs)
 _"Assessing the potential of Azure resources for computational studies of the aerodynamics of animal flight"_
 
 #### Proposal Abstract:
+We propose a study to determine suitability and cost/benefit of using Azure cloud for research in computational aerodynamics.
+We will run our research code PetIBM to set up a starting condition of the aerodynamic flow around the 3D geometry of a flying snake's body, and run scalability tests on two computational grids: with 45 million and 225 million points, respectively.
+For short runs, we will use 2, 4, 8 and 16 nodes (Azure A9) in the first case, and 6, 12, 24 and 48 nodes in the second case.
+We also propose to compare the performance obtained on CPU nodes versus GPU nodes, when these become available on Azure.
+A total allocation of 200,000 core hours should be enough for completing this study.
+We also plan to offer a tutorial at the SciPy conference using pre-loaded Jupyter notebooks, running on Azure cloud.
 
 #### Proposal Narrative:
 
