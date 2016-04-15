@@ -17,8 +17,6 @@ _"Assessing the potential of Azure resources for computational studies of the ae
 
 #### Proposal Narrative:
 
-_Introduction_
-
 Our group published a study of the aerodynamics of flying snakes in 2014 [1], using two-dimensional simulations with a fluid solver called cuIBM.
 The solver is a serial GPU-enabled code, and thus limited in the size of problems it can handle by the memory available on a single GPU card.
 Even so, cuIBM allowed us to find evidence of a surprising aerodynamic effect: enhancement of the lift forces at a particular angle of attack.
@@ -31,10 +29,18 @@ We also made available a technical report as supplementary material to the confe
 ["Using AmgX to Accelerate PETSc-Based CFD Codes"](http://nbviewer.jupyter.org/github/barbagroup/conferences/blob/2f51957e03585d980a471c52595f46551948b771/GTC2016/GTC2016_S6355.ipynb).
 As reported therein, we looked at the cost difference in running simulations with PetIBM on GPU nodes (using AmgX) versus CPU nodes (using PETSc), using AWS EC2 cloud resources.
 This was the first time that we studied the suitability of cloud resources for our research, and we are encouraged by the results.
+
 The goal of this Microsoft Azure Research allocation award is to establish the suitability of Azure resources for our research on the aerodynamics of animal flight, using our PetIBM code.
 We estimated that with 200k CPU-core hours, we will be able to complete a small-scale study of the parallel performance of PetIBM on Azure CPU nodes.
 We would also like to run PetIBM on the new Azure GPU nodes, and compare the time-to-solution and cost of both architectures for our application.
-The results of this study will allow us to estimate the resources that would be needed to complete a full study of the three-dimensional lift-enhancement mechanism in anatomically correct sections of a flying snake's body.
+The results of this study will allow us to estimate the resources that would be needed to complete a full study of the three-dimensional lift-enhancement mechanism in anatomically correct sections of a flying snake's body, if we were to use Azure cloud.
+With that data, we will suggest a future outlook for moving our research away from university-managed or national-laboratory HPC resources, into cloud.
+We will disseminate the results via blog posts, posters and conference presentations at venues like SciPy (Scientific Python Conference), the Supercomputing Conference (SC16) and the International Supercomputing Conference (ISC 2016).
+
+In addition to our focus on research computing on Azure cloud, we have an educational program where we want to take advantage of cloud services.
+We are developing a tutorial on high-performance computing with Python and GPUs, using Jupyter Notebooks, for the SciPy conference.
+If the new Azure GPU nodes are available by July 2016, we propose to deploy our tutorial on Azure, so that students need not install anything on their personal computers.
+This would showcase a new method for teaching large numbers of students using Jupyter Notebooks on cloud-computing resources.
 
 This Azure research effort is in collaboration with Dr. Kenji Takeda, Solutions Architect and Technical Manager for Microsoft Research.
 
