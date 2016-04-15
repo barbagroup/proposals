@@ -92,11 +92,21 @@ For this stage, we estimate a requirement of approximately 1,800 core hours (FYI
 Second, we propose to evaluate the scalability of PetIBM on a DNS-ready mesh size of 225 million points using 6, 12, 24, and 48 nodes.
 For this second stage, we estimate a requirement of approximately 9,000 core hours (FYI: 16*4.5E-06/3600*225E+06*100*5*4).
 
-Overall, the complete study will require about 196,800 core hours.
+Overall, the estimated resource requirement for the complete study detailed above is 196,800 core hours.
 
 *Comparison with GPU resources:* 
 As stated in the introduction, we also developed an AmgX-wrapper, compatible with PetIBM, to solve the linear systems on multiple GPUs.
 We propose to compare the performance obtained on CPU nodes versus GPU nodes, when these become available on Azure.
+As we don't know when these resources will become available, and cannot anticipate the speed-up that they will provide for our simulation code, we are not including an additional estimate of resources.
+Also, from the calculation detailed above, the greater cost comes from the initial run, needed to create a physical starting condition.
+Scalability runs are a minor computational cost.
+
+A total allocation of 200,000 core hours should thus be enough for completing this study.
+
+*Future use of Azure cloud*
+Our future research goals include a study of the aerodynamic forces of the 3D geometry of a flying snake, at several Reynolds numbers and angles of attack.
+Each simulation might require in the order of 100,000 core hours, and we will need to run perhaps a dozen of them.
+This Azure research allocation will help us determine the cost-benefits of continuing our research on Azure.
 
 _References_
 
